@@ -3,20 +3,34 @@ import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
 import ErrorAlert from "../../components/error-alert/error-alert";
+import Head from "next/head";
 
 export default function EventDetailsPage(props) {
   const { event } = props;
+  const headElement = (
+    <Head>
+      <title>{event ? event.title : "No event found!"}</title>
+      <meta
+        name="description"
+        content={event ? event.description : "Ops, this event doesn't exist."}
+      />
+    </Head>
+  );
 
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No event found!</p>
-      </ErrorAlert>
+      <>
+        {headElement}
+        <ErrorAlert>
+          <p>No event found!</p>
+        </ErrorAlert>
+      </>
     );
   }
 
   return (
     <>
+      {headElement}
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}

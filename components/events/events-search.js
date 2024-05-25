@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "../../styles/events-search.module.css";
 import Button from "../ui/button";
 
 export default function EventsSearch(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const yearSelectRef = useRef();
   const monthSelectRef = useRef();
 
   function submitClick(event) {
+    setIsLoading(true);
     event.preventDefault();
 
     const selectedYear = yearSelectRef.current.value;
@@ -42,7 +44,9 @@ export default function EventsSearch(props) {
             <option value="12">December</option>
           </select>
         </div>
-        <Button onClick={submitClick}>Find Events</Button>
+        <Button onClick={submitClick} loading={isLoading}>
+          {isLoading ? "Loading..." : "Find Events"}
+        </Button>
       </div>
     </form>
   );

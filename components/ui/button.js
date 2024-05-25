@@ -12,7 +12,11 @@ export default function Button(props) {
   }
 
   return (
-    <button className={styles.btn} onClick={props.onClick}>
+    <button
+      className={styles.btn}
+      onClick={props.onClick}
+      disabled={props.loading}
+    >
       {props.children}
     </button>
   );
